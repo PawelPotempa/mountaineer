@@ -1,0 +1,157 @@
+/***** TOGGLE *****/
+.nav__container {
+  /* vertically and horizontally center */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* position in top left corner */
+  position: fixed;
+  left: 15px;
+  top: 15px;
+  /* place the element above map */
+  z-index: 1000;
+}
+
+.nav__container[type="radio"] {
+  /* hide default radio buttons */
+  display: none;
+}
+
+.nav__icon {
+  /* basic styling of the button */
+  display: block;
+  position: relative;
+  background: rgb(246, 246, 246);
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  border: 1px solid rgba(26, 26, 26, 0.2);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.nav__icon::before {
+  /* styling of the button's icon */
+  content: "";
+  position: absolute;
+  background: #fff;
+  top: 7px;
+  left: 7px;
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+}
+
+.nav__icon:hover {
+  transform: translateX(2px);
+  box-shadow: 8px 8px 18px -5px rgba(66, 68, 90, 1);
+}
+
+.nav__icon:active {
+  box-shadow: none;
+}
+
+.nav__container:checked + .nav__icon:before {
+  transform: scale(1.2);
+}
+
+.protected {
+  /* hide element if protected */
+  display: none;
+}
+
+/***** TOGGLE ICONS *****/
+.nav__icon.icon__practice::before {
+  background-image: url("/icons/modes/practice/practiceModeOutline.svg");
+}
+
+.nav__container:checked + .icon__practice:before {
+  background-image: url("/icons/modes/practice/practiceModeSolid.svg");
+}
+
+.nav__icon.icon__learn::before {
+  background-image: url("/icons/modes/learn/learnModeOutline.svg");
+}
+
+.nav__container:checked + .icon__learn:before {
+  background-image: url("/icons/modes/learn/learnModeSolid.svg");
+}
+
+.nav__icon.icon__game::before {
+  background-image: url("/icons/modes/game/gameModeOutline.svg");
+}
+
+.nav__container:checked + .icon__game:before {
+  background-image: url("/icons/modes/game/gameModeSolid.svg");
+}
+
+.nav__icon.icon__edit::before {
+  background-image: url("/icons/modes/edit/editModeOutline.svg");
+}
+
+.nav__container:checked + .icon__edit:before {
+  background-image: url("/icons/modes/edit/editModeSolid.svg");
+}
+
+.nav__icon.icon__login::before {
+  background-image: url("/icons/login.svg");
+}
+
+/***** TOOLTIP *****/
+
+.tooltip {
+  position: relative;
+  padding: 0.3rem 0;
+}
+
+.tooltip:before {
+  /* set content equal to data-text attribute */
+  content: attr(data-text);
+  position: absolute;
+
+  /* vertically center */
+  top: 50%;
+  transform: translateY(-50%);
+
+  /* move to the right of the element of interest */
+  left: 100%;
+  margin-left: 15px;
+
+  /* other styling */
+  width: 150px;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 10px;
+  background: #000;
+  color: #fff;
+  text-align: center;
+
+  /* keep hidden by default */
+  display: none;
+}
+
+.tooltip:after {
+  content: "";
+  position: absolute;
+
+  /* position tooltip correctly */
+  left: 100%;
+  margin-left: -5px;
+
+  /* vertically center */
+  top: 50%;
+  transform: translateY(-50%);
+
+  /* pointer */
+  border: 10px solid #000;
+  border-color: transparent black transparent transparent;
+
+  /* keep hidden by default */
+  display: none;
+}
+
+.tooltip:hover:before,
+.tooltip:hover:after {
+  /* show tooltip on hover */
+  display: block;
+}
