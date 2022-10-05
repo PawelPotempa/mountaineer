@@ -16,12 +16,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   if (req.method === "DELETE") {
-    const { name } = req.body;
-    await prisma.pin.deleteMany({
-      where: {
-        name,
-      },
-    });
+    try {
+      const { name } = req.body;
+      const pinsToDelete = await prisma.pin.deleteMany({
+        where: {
+          name,
+        },
+      });
+      res.status(200).json(pinsToDelete);
+    } catch (err) {
+      res.status(400).json({ message: "Something went wrong" });
+    }
   }
 
   if (req.method !== "POST" && req.method !== "DELETE") {

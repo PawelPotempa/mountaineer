@@ -25,9 +25,6 @@ const Pins = ({ item }: { item: Pin }) => {
   const deletePin = async () => {
     await fetch("/api/pins", {
       method: "DELETE",
-      headers: {
-        "Content-type": "application/json",
-      },
       body: JSON.stringify({ name: item.name }),
     });
     const newItems = pins.filter((i) => i.name !== item.name);
