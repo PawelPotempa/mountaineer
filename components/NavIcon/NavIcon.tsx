@@ -11,6 +11,7 @@ interface IProps {
 const NavIcon = ({ tooltip, style, mode }: IProps) => {
   const [mapMode, setMapMode] = useRecoilState(currentMode);
 
+  // Set map mode on change
   const changeHandler = () => {
     setMapMode(mode);
   };

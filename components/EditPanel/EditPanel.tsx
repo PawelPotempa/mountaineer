@@ -7,6 +7,7 @@ const EditPanel = () => {
   const [form, setForm] = useRecoilState(formValues);
   const [pins, setPins] = useRecoilState(fetchedPins);
 
+  // Handle form input change
   const changeHandler = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -15,6 +16,7 @@ const EditPanel = () => {
     setForm({ ...form, [key]: value });
   };
 
+  // Handle shape selector
   const shapeHandler = (e: MouseEvent<HTMLImageElement>) => {
     const shape = (e.target as HTMLImageElement).src
       .split("/")
@@ -26,6 +28,7 @@ const EditPanel = () => {
     });
   };
 
+  // Handle form submit
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const response = await fetch("/api/pins", {
@@ -63,7 +66,7 @@ Please make sure the required fields are filled in!`
     <aside className={styles.form__container}>
       <form onSubmit={submitHandler} className={styles.form}>
         <div className={styles.input__wrapper}>
-          <label>Name*:</label>
+          <label>Nazwa*:</label>
           <input
             className={styles.input}
             name="name"
@@ -71,7 +74,11 @@ Please make sure the required fields are filled in!`
           ></input>
         </div>
         <div className={styles.input__wrapper}>
-          <label>Altitude:</label>
+          <label>
+            {form.shape === "icons/lake/neutral.svg"
+              ? "Głębokość:"
+              : "Wysokość:"}
+          </label>
           <input
             className={styles.input}
             name="altitude"
@@ -81,7 +88,7 @@ Please make sure the required fields are filled in!`
         {form.shape === "icons/pass/neutral.svg" ? (
           <>
             <div className={styles.input__wrapper}>
-              <label>Keystone 1:</label>
+              <label>Zwornik 1:</label>
               <input
                 className={styles.input}
                 name="keystone_1"
@@ -89,7 +96,7 @@ Please make sure the required fields are filled in!`
               ></input>
             </div>
             <div className={styles.input__wrapper}>
-              <label>Keystone 2:</label>
+              <label>Zwornik 2:</label>
               <input
                 className={styles.input}
                 name="keystone_2"
@@ -99,7 +106,7 @@ Please make sure the required fields are filled in!`
           </>
         ) : null}
         <div className={styles.input__wrapper}>
-          <label>Notes:</label>
+          <label>Opis:</label>
           <textarea
             className={styles.input}
             name="notes"

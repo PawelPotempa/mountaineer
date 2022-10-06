@@ -8,11 +8,13 @@ const PlaceholderPin = () => {
   const pin = useRef<any>();
   const [form, setForm] = useRecoilState(formValues);
 
+  // Initial pin position far away from the view
   const faraway: LatLngBoundsExpression = [
     [0, 0],
     [0, 0],
   ];
 
+  // Set a temporary pin on the map in selected position with every click, then pan camera to that pin
   const map = useMapEvents({
     click(e) {
       const lat = e.latlng.lat;

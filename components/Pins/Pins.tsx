@@ -17,14 +17,19 @@ const Pins = ({ item }: { item: Pin }) => {
   const [pins, setPins] = useRecoilState(fetchedPins);
   const mode = useRecoilValue(currentMode);
 
+  // Pin position
   const bounds: LatLngBoundsExpression = [
     [item.latitude - 0.34, item.longitude - 0.34],
     [item.latitude + 0.34, item.longitude + 0.34],
   ];
 
+  // Delete pin on click
   const deletePin = async () => {
     await fetch("/api/pins", {
       method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+      },
       body: JSON.stringify({ name: item.name }),
     });
     const newItems = pins.filter((i) => i.name !== item.name);

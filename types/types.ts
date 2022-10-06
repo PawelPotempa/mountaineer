@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { Pin } from "@prisma/client";
 
+// Wrapper that allows for modifying already declared types
 export type Modify<T, R> = Omit<T, keyof R> & R;
 
 export type Pins = Modify<

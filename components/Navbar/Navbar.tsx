@@ -8,6 +8,7 @@ const Navbar = () => {
   const { status } = useSession();
   const [modal, setModal] = useState(false);
 
+  // Navigation icons configuration
   const navConfig = [
     {
       id: 1,

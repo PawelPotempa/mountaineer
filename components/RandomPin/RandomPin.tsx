@@ -21,28 +21,30 @@ const RandomPin = ({ data }: IPin) => {
     randomPin.shape
   );
 
+  // Set random pin on map with every change
   useEffect(() => {
     setPinUrl(randomPin.shape);
   }, [randomPin]);
 
-  // If new random pin is generated, it will center the map on the new pin
+  // If new random pin is generated, center the map on the new pin
   useEffect(() => {
     map.flyTo([randomPin?.latitude, randomPin?.longitude], 6);
     popup.current.openPopup() ?? null;
   }, [map, randomPin]);
 
+  // Generate new random pin
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setRandomPin(data[getRandomElFromArray(data.length)]);
     (e.target as HTMLFormElement).reset();
   };
 
-  // Generates a random number between 0 and the length of the array
+  // Generate a random number between 0 and the length of the array
   function getRandomElFromArray(arrayLength: number) {
     return Math.floor(Math.random() * arrayLength);
   }
 
-  // Creates a custom icon for the random pin
+  // Create a custom icon for the random pin
   const markerIcon = new Icon({
     iconUrl: pinUrl,
     iconSize: [40, 40],

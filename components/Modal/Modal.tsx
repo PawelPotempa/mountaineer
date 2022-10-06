@@ -7,6 +7,7 @@ interface IProps {
 }
 
 const Modal = ({ setModal }: IProps) => {
+  // Listen for ESC key press
   const keyPress = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -16,6 +17,7 @@ const Modal = ({ setModal }: IProps) => {
     [setModal]
   );
 
+  // Add event listener on mount
   useEffect(() => {
     document.addEventListener("keydown", keyPress);
     return () => document.removeEventListener("keydown", keyPress);

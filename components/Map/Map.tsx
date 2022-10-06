@@ -6,8 +6,10 @@ import { ChildrenProps } from "@/types/types";
 import MapOverlay from "../MapOverlay";
 
 const Map = ({ children }: ChildrenProps) => {
+  // Initial camera position
   const position: LatLngExpression | undefined = [-128, 128];
 
+  // Camera boundaries
   const bounds: LatLngBoundsExpression = [
     [0, 0],
     [-256, 256],

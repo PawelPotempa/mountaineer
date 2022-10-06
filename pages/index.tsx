@@ -27,6 +27,7 @@ const Study = ({ data }: IPins) => {
   const mode = useRecoilValue(currentMode);
   const [pins, setPins] = useRecoilState(fetchedPins);
 
+  // Assign fetched data to a global state
   useEffect(() => {
     setPins(data);
   }, []);
