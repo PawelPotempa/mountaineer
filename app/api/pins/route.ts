@@ -14,7 +14,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
     const supabase = await createClient()
-    const { x, y } = await request.json()
+    const { x, y, type, details } = await request.json()
 
     const { data: { user }, error: userError } = await supabase.auth.getUser()
 
@@ -27,7 +27,9 @@ export async function POST(request: Request) {
         .insert({
             x,
             y,
-            user_id: user.id
+            type,
+            user_id: user.id,
+            details
         })
         .select()
         .single()
