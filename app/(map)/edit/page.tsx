@@ -5,6 +5,20 @@ import { serverPinOptions } from '@/queries/pins';
 import { dehydrate } from '@tanstack/react-query';
 import { HydrationBoundary } from '@tanstack/react-query';
 import { createClient } from '@/lib/supabase/server';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Tryb edycji',
+    description: 'Edytuj i dodawaj nowe punkty na mapie górskiej. Współtwórz bazę wiedzy o górach.',
+    alternates: {
+        canonical: `${process.env.NEXT_PUBLIC_SITE_URL}/edit`,
+    },
+    openGraph: {
+        title: 'Tryb edycji | Mountaineer',
+        description: 'Edytuj i dodawaj nowe punkty na mapie górskiej. Współtwórz bazę wiedzy o górach.',
+        url: `${process.env.NEXT_PUBLIC_SITE_URL}/edit`,
+    },
+};
 
 export default async function EditPage() {
     const supabase = await createClient();
