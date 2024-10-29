@@ -163,7 +163,7 @@ export function GameQuestion({ pin, open, onOpenChange, onNextPin }: GameQuestio
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
                         <config.icon className="h-5 w-5" style={{ color: config.color }} />
-                        <span>Question</span>
+                        <span>Question {isCorrect !== null && `- ${isCorrect ? "Correct!" : "Incorrect"}`}</span>
                     </DialogTitle>
                 </DialogHeader>
 
@@ -179,31 +179,50 @@ export function GameQuestion({ pin, open, onOpenChange, onNextPin }: GameQuestio
                             <Input
                                 value={answer}
                                 onChange={(e) => setAnswer(e.target.value)}
-                                placeholder="Your answer..."
+                                placeholder="Type your answer here..."
+                                className="text-center"
                                 autoFocus
                             />
-                            <Button type="submit" className="w-full">
-                                Check Answer
+                            <Button
+                                type="submit"
+                                className="w-full"
+                                variant={answer.trim() ? "default" : "secondary"}
+                            >
+                                {answer.trim() ? "Check Answer" : "Show me the answer"}
                             </Button>
                         </form>
                     ) : (
                         <div className="space-y-4">
                             <div className={cn(
-                                "p-4 rounded-lg flex items-center gap-2",
-                                isCorrect ? "bg-green-100" : "bg-red-100"
+                                "p-4 rounded-lg",
+                                isCorrect ? "bg-green-100" : "bg-red-50"
                             )}>
-                                {isCorrect ? (
-                                    <>
-                                        <Check className="h-5 w-5 text-green-600" />
-                                        <span className="text-green-600">Correct!</span>
-                                    </>
-                                ) : (
-                                    <>
-                                        <X className="h-5 w-5 text-red-600" />
-                                        <span className="text-red-600">
-                                            Incorrect. {currentQuestion.format(pin)}
-                                        </span>
-                                    </>
+                                <div className="flex items-center gap-2 mb-2">
+                                    {isCorrect ? (
+                                        <>
+                                            <Check className="h-5 w-5 text-green-600" />
+                                            <span className="text-green-600 font-medium">Perfect!</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <X className="h-5 w-5 text-red-600" />
+                                            <span className="text-red-600 font-medium">
+                                                {answer.trim() ? "Not quite" : "No problem, let's learn!"}
+                                            </span>
+                                        </>
+                                    )}
+                                </div>
+                                {!isCorrect && (
+                                    <div className="mt-2 p-3 bg-white rounded border border-gray-200">
+                                        <p className="text-gray-900 font-medium">
+                                            {currentQuestion.format(pin)}
+                                        </p>
+                                        {answer.trim() && (
+                                            <p className="text-gray-500 mt-1 text-sm">
+                                                You answered: {answer}
+                                            </p>
+                                        )}
+                                    </div>
                                 )}
                             </div>
                             <Button
