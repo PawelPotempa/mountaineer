@@ -22,7 +22,8 @@ export function AuthButton({ isAuthenticated }: AuthButtonProps) {
             href="/signin"
             icon={isAuthenticated ? "log-out" : "log-in"}
             title={isAuthenticated ? "Wyloguj się" : "Zaloguj się"}
-            className={isAuthenticated ? "hover:bg-red-50 hover:text-red-600" : undefined}
+            className={isAuthenticated ? "hover:bg-red-50 hover:text-red-600" : "hover:bg-green-50 hover:text-green-600"}
+            iconColor={isAuthenticated ? "text-red-500" : "text-green-500"}
             onClick={isAuthenticated ? handleSignOut : undefined}
         />
     );

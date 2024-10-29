@@ -24,6 +24,7 @@ interface NavigationButtonProps {
     icon: IconType;
     title: string;
     className?: string;
+    iconColor?: string;
     onClick?: () => Promise<void>;
     disabled?: boolean;
 }
@@ -33,6 +34,7 @@ export function NavigationButton({
     icon,
     title,
     className,
+    iconColor,
     onClick,
     disabled,
 }: NavigationButtonProps) {
@@ -62,7 +64,7 @@ export function NavigationButton({
                         className
                     )}
                 >
-                    <Icon className="h-5 w-5" />
+                    <Icon className={cn("h-5 w-5", iconColor)} />
                 </div>
             </TooltipTrigger>
             <TooltipContent side="right" className="z-[1001]">

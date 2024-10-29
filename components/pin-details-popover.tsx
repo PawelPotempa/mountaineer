@@ -44,8 +44,8 @@ export function PinDetailsPopover({ pin }: PinDetailsPopoverProps) {
                         <div className="space-y-2">
                             {'elevation' in details && details.elevation && (
                                 <div className="flex justify-between items-center text-sm">
-                                    <span className="text-muted-foreground">Elevation</span>
-                                    <span className="font-medium">{details.elevation} m</span>
+                                    <span className="text-muted-foreground">Wysokość</span>
+                                    <span className="font-medium">{details.elevation} m n.p.m.</span>
                                 </div>
                             )}
                             {'capacity' in details && details.capacity && (
