@@ -89,7 +89,15 @@ body {
   }
 }
 
-/* Add this to your existing CSS */
+/* Override Leaflet's default popup styles */
+.leaflet-popup-content-wrapper {
+  @apply !p-0 !m-0 !bg-transparent !border-0 !shadow-none !rounded-none;
+}
+
+.leaflet-popup-content {
+  @apply !m-0 !p-0 !w-auto !h-auto;
+}
+
 .custom-pin {
   display: flex !important;
   align-items: center;

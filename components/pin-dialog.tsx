@@ -146,7 +146,7 @@ export function PinDialog({ pin, mode, open, onOpenChange, onSubmit, onDelete, i
             <DialogContent className="z-[1001]">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
-                        <config.icon className="h-5 w-5" style={{ color: config.color }} />
+                        <config.icon size={20} style={{ color: config.color }} />
                         <span>{mode === 'create' ? 'New' : 'Edit'} {config.label}</span>
                     </DialogTitle>
                 </DialogHeader>
