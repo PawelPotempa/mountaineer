@@ -39,10 +39,10 @@ export const ExistingPins = ({ pins, mode }: ExistingPinsProps) => {
                 onSuccess: () => {
                     setDialogOpen(false);
                     setSelectedPin(null);
-                    toast.success('Pin updated successfully');
+                    toast.success('Punkt został zaktualizowany');
                 },
                 onError: (error) => {
-                    toast.error(error instanceof Error ? error.message : "Failed to update pin");
+                    toast.error(error instanceof Error ? error.message : "Nie udało się zaktualizować punktu");
                 },
             }
         );
@@ -55,10 +55,10 @@ export const ExistingPins = ({ pins, mode }: ExistingPinsProps) => {
             onSuccess: () => {
                 setDialogOpen(false);
                 setSelectedPin(null);
-                toast.success('Pin deleted successfully');
+                toast.success('Punkt został usunięty');
             },
             onError: (error) => {
-                toast.error(error instanceof Error ? error.message : "Failed to delete pin");
+                toast.error(error instanceof Error ? error.message : "Nie udało się usunąć punktu");
             },
         });
     };

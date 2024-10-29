@@ -21,7 +21,7 @@ export function AuthButton({ isAuthenticated }: AuthButtonProps) {
         <NavigationButton
             href="/signin"
             icon={isAuthenticated ? "log-out" : "log-in"}
-            title={isAuthenticated ? "Logout" : "Login"}
+            title={isAuthenticated ? "Wyloguj się" : "Zaloguj się"}
             className={isAuthenticated ? "hover:bg-red-50 hover:text-red-600" : undefined}
             onClick={isAuthenticated ? handleSignOut : undefined}
         />

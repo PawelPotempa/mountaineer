@@ -34,7 +34,8 @@ export default function SignupPage() {
             const result = await signup(formData);
             if (result?.error) {
                 if (result.error.includes('User already registered')) {
-                    toast.error("This email is already registered. Try logging in instead!");
+                    console.log(result.error);
+                    toast.error("Ten email jest już zarejestrowany. Spróbuj się zalogować!");
                 } else {
                     toast.error(result.error);
                 }
@@ -42,18 +43,18 @@ export default function SignupPage() {
         } catch (error) {
             // Only show error if it's not a redirect
             if (error instanceof Error && error.message !== "NEXT_REDIRECT") {
-                toast.error("Something went wrong. Please try again.");
+                toast.error("Coś poszło nie tak. Spróbuj ponownie.");
             }
         }
     }
 
     return (
         <AuthCard
-            title="Create an account"
-            description="Enter your details to create your account"
+            title="Utwórz konto"
+            description="Wprowadź swoje dane, aby utworzyć konto"
             footer={{
-                text: "Already have an account?",
-                linkText: "Sign in",
+                text: "Masz już konto?",
+                linkText: "Zaloguj się",
                 linkHref: "/signin"
             }}
             isLoading={form.formState.isSubmitting}
@@ -68,7 +69,7 @@ export default function SignupPage() {
                             <FormLabel>Email</FormLabel>
                             <FormControl>
                                 <Input
-                                    placeholder="name@example.com"
+                                    placeholder="email@example.com"
                                     type="email"
                                     disabled={form.formState.isSubmitting}
                                     {...field}
@@ -83,9 +84,10 @@ export default function SignupPage() {
                     name="password"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Password</FormLabel>
+                            <FormLabel>Hasło</FormLabel>
                             <FormControl>
                                 <Input
+                                    placeholder="********"
                                     type="password"
                                     disabled={form.formState.isSubmitting}
                                     {...field}

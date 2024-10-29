@@ -20,19 +20,19 @@ export async function NavigationPanel() {
                 <NavigationButton
                     href="/"
                     icon="book-open"
-                    title="Learn Mode"
+                    title="Tryb nauki"
                 />
 
                 <NavigationButton
                     href="/game"
                     icon="gamepad"
-                    title="Game Mode"
+                    title="Tryb gry"
                 />
 
                 <NavigationButton
                     href="/edit"
                     icon="edit"
-                    title="Edit Mode"
+                    title="Tryb edycji"
                     disabled={!isAuthenticated}
                 />
                 <Separator className="mb-1" />

@@ -50,19 +50,19 @@ export function PinDetailsPopover({ pin }: PinDetailsPopoverProps) {
                             )}
                             {'capacity' in details && details.capacity && (
                                 <div className="flex justify-between items-center text-sm">
-                                    <span className="text-muted-foreground">Capacity</span>
-                                    <span className="font-medium">{details.capacity} people</span>
+                                    <span className="text-muted-foreground">Pojemność</span>
+                                    <span className="font-medium">{details.capacity} osób</span>
                                 </div>
                             )}
                             {'depth' in details && details.depth && (
                                 <div className="flex justify-between items-center text-sm">
-                                    <span className="text-muted-foreground">Depth</span>
+                                    <span className="text-muted-foreground">Głębokość</span>
                                     <span className="font-medium">{details.depth} m</span>
                                 </div>
                             )}
                             {'length' in details && details.length && (
                                 <div className="flex justify-between items-center text-sm">
-                                    <span className="text-muted-foreground">Length</span>
+                                    <span className="text-muted-foreground">Długość</span>
                                     <span className="font-medium">{details.length} km</span>
                                 </div>
                             )}

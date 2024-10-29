@@ -39,14 +39,14 @@ export default function SignInPage() {
             const result = await signin(formData);
             if (result?.error) {
                 toast.error(result.error === 'Invalid login credentials'
-                    ? "Invalid email or password"
+                    ? "Nieprawidłowy email lub hasło"
                     : result.error
                 );
             }
         } catch (error) {
             // Only show error if it's not a redirect
             if (error instanceof Error && error.message !== "NEXT_REDIRECT") {
-                toast.error("Something went wrong. Please try again.");
+                toast.error("Coś poszło nie tak. Spróbuj ponownie.");
             }
         } finally {
             setIsLoading(false);
@@ -55,11 +55,11 @@ export default function SignInPage() {
 
     return (
         <AuthCard
-            title="Sign in"
-            description="Enter your email to sign in to your account"
+            title="Zaloguj się"
+            description="Wprowadź swój email, aby zalogować się do konta"
             footer={{
-                text: "Don't have an account?",
-                linkText: "Sign up",
+                text: "Nie masz konta?",
+                linkText: "Zarejestruj się",
                 linkHref: "/signup"
             }}
             isLoading={isLoading}
@@ -74,7 +74,7 @@ export default function SignInPage() {
                             <FormLabel>Email</FormLabel>
                             <FormControl>
                                 <Input
-                                    placeholder="name@example.com"
+                                    placeholder="email@example.com"
                                     type="email"
                                     disabled={isLoading}
                                     {...field}
@@ -89,9 +89,10 @@ export default function SignInPage() {
                     name="password"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Password</FormLabel>
+                            <FormLabel>Hasło</FormLabel>
                             <FormControl>
                                 <Input
+                                    placeholder="********"
                                     type="password"
                                     disabled={isLoading}
                                     {...field}

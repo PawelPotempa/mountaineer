@@ -112,7 +112,7 @@ export function PinDialog({ pin, mode, open, onOpenChange, onSubmit, onDelete, i
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
                         <config.icon size={20} style={{ color: config.color }} />
-                        <span>{mode === 'create' ? 'New' : 'Edit'} {config.label}</span>
+                        <span>{mode === 'create' ? 'Nowy' : 'Edytuj'} {config.label}</span>
                     </DialogTitle>
                 </DialogHeader>
 
@@ -123,7 +123,7 @@ export function PinDialog({ pin, mode, open, onOpenChange, onSubmit, onDelete, i
                             name="name"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Name</FormLabel>
+                                    <FormLabel>Nazwa</FormLabel>
                                     <FormControl>
                                         <Input {...field} />
                                     </FormControl>
@@ -138,7 +138,7 @@ export function PinDialog({ pin, mode, open, onOpenChange, onSubmit, onDelete, i
                                 name="elevation"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Elevation (m)</FormLabel>
+                                        <FormLabel>Wysokość (m)</FormLabel>
                                         <FormControl>
                                             <Input
                                                 type="number"
@@ -162,7 +162,7 @@ export function PinDialog({ pin, mode, open, onOpenChange, onSubmit, onDelete, i
                                 name="capacity"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Capacity (people)</FormLabel>
+                                        <FormLabel>Pojemność (osób)</FormLabel>
                                         <FormControl>
                                             <Input
                                                 type="number"
@@ -186,7 +186,7 @@ export function PinDialog({ pin, mode, open, onOpenChange, onSubmit, onDelete, i
                                 name="depth"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Depth (m)</FormLabel>
+                                        <FormLabel>Głębokość (m)</FormLabel>
                                         <FormControl>
                                             <Input
                                                 type="number"
@@ -210,7 +210,7 @@ export function PinDialog({ pin, mode, open, onOpenChange, onSubmit, onDelete, i
                                 name="length"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Length (km)</FormLabel>
+                                        <FormLabel>Długość (km)</FormLabel>
                                         <FormControl>
                                             <Input
                                                 type="number"
@@ -233,7 +233,7 @@ export function PinDialog({ pin, mode, open, onOpenChange, onSubmit, onDelete, i
                             name="description"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Description</FormLabel>
+                                    <FormLabel>Opis</FormLabel>
                                     <FormControl>
                                         <Textarea {...field} />
                                     </FormControl>
@@ -247,7 +247,7 @@ export function PinDialog({ pin, mode, open, onOpenChange, onSubmit, onDelete, i
                                 {isSubmitPending ? (
                                     <Loader2 className="h-4 w-4 animate-spin" />
                                 ) : (
-                                    mode === 'create' ? 'Create' : 'Update'
+                                    mode === 'create' ? 'Utwórz' : 'Aktualizuj'
                                 )}
                             </Button>
 
@@ -265,7 +265,7 @@ export function PinDialog({ pin, mode, open, onOpenChange, onSubmit, onDelete, i
                                     {isDeletePending ? (
                                         <Loader2 className="h-4 w-4 animate-spin" />
                                     ) : (
-                                        'Delete Pin'
+                                        'Usuń punkt'
                                     )}
                                 </Button>
                             )}

@@ -25,74 +25,74 @@ type PinQuestionConfig<T extends PinType> = QuestionType<T>;
 const QUESTIONS: { [T in PinType]: PinQuestionConfig<T>[] } = {
     peak: [
         {
-            question: "What's the name of this peak?",
+            question: "Jak nazywa się ten szczyt?",
             answer: (pin) => pin.details.name,
-            format: (pin) => `It's ${pin.details.name}`,
+            format: (pin) => `To ${pin.details.name}`,
         },
         {
-            question: (pin) => `What's the elevation of ${pin.details.name}?`,
+            question: (pin) => `Jaka jest wysokość ${pin.details.name}?`,
             answer: (pin) => pin.details.elevation,
-            format: (pin) => `The elevation is ${pin.details.elevation}m`,
+            format: (pin) => `Wysokość wynosi ${pin.details.elevation}m`,
         }
     ],
     pass: [
         {
-            question: "What's the name of this mountain pass?",
+            question: "Jak nazywa się ta przełęcz?",
             answer: (pin) => pin.details.name,
-            format: (pin) => `It's ${pin.details.name}`,
+            format: (pin) => `To ${pin.details.name}`,
         },
         {
-            question: (pin) => `What's the elevation of ${pin.details.name}?`,
+            question: (pin) => `Jaka jest wysokość ${pin.details.name}?`,
             answer: (pin) => pin.details.elevation,
-            format: (pin) => `The elevation is ${pin.details.elevation}m`,
+            format: (pin) => `Wysokość wynosi ${pin.details.elevation}m`,
         }
     ],
     river: [
         {
-            question: "What's the name of this river?",
+            question: "Jak nazywa się ta rzeka?",
             answer: (pin) => pin.details.name,
-            format: (pin) => `It's ${pin.details.name}`,
+            format: (pin) => `To ${pin.details.name}`,
         },
         {
-            question: (pin) => `What's the length of ${pin.details.name}?`,
+            question: (pin) => `Jaka jest długość ${pin.details.name}?`,
             answer: (pin) => pin.details.length ?? 0,
-            format: (pin) => `The length is ${pin.details.length}km`,
+            format: (pin) => `Długość wynosi ${pin.details.length}km`,
         }
     ],
     lake: [
         {
-            question: "What's the name of this lake?",
+            question: "Jak nazywa się ten staw?",
             answer: (pin) => pin.details.name,
-            format: (pin) => `It's ${pin.details.name}`,
+            format: (pin) => `To ${pin.details.name}`,
         },
         {
-            question: (pin) => `What's the depth of ${pin.details.name}?`,
+            question: (pin) => `Jaka jest głębokość ${pin.details.name}?`,
             answer: (pin) => pin.details.depth ?? 0,
-            format: (pin) => `The depth is ${pin.details.depth}m`,
+            format: (pin) => `Głębokość wynosi ${pin.details.depth}m`,
         }
     ],
     shelter: [
         {
-            question: "What's the name of this shelter?",
+            question: "Jak nazywa się ten schron?",
             answer: (pin) => pin.details.name,
-            format: (pin) => `It's ${pin.details.name}`,
+            format: (pin) => `To ${pin.details.name}`,
         },
         {
-            question: (pin) => `What's the capacity of ${pin.details.name}?`,
+            question: (pin) => `Jaka jest pojemność ${pin.details.name}?`,
             answer: (pin) => pin.details.capacity,
-            format: (pin) => `The capacity is ${pin.details.capacity} people`,
+            format: (pin) => `Pojemność wynosi ${pin.details.capacity} osób`,
         }
     ],
     cave: [
         {
-            question: "What's the name of this cave?",
+            question: "Jak nazywa się ta jaskinia?",
             answer: (pin) => pin.details.name,
-            format: (pin) => `It's ${pin.details.name}`,
+            format: (pin) => `To ${pin.details.name}`,
         },
         {
-            question: (pin) => `What's the depth of ${pin.details.name}?`,
+            question: (pin) => `Jaka jest głębokość ${pin.details.name}?`,
             answer: (pin) => pin.details.depth ?? 0,
-            format: (pin) => `The depth is ${pin.details.depth}m`,
+            format: (pin) => `Głębokość wynosi ${pin.details.depth}m`,
         }
     ]
 } as const;
@@ -163,7 +163,7 @@ export function GameQuestion({ pin, open, onOpenChange, onNextPin }: GameQuestio
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
                         <config.icon className="h-5 w-5" style={{ color: config.color }} />
-                        <span>Question {isCorrect !== null && `- ${isCorrect ? "Correct!" : "Incorrect"}`}</span>
+                        <span>Pytanie {isCorrect !== null && `- ${isCorrect ? "Dobrze!" : "Źle"}`}</span>
                     </DialogTitle>
                 </DialogHeader>
 
@@ -179,7 +179,7 @@ export function GameQuestion({ pin, open, onOpenChange, onNextPin }: GameQuestio
                             <Input
                                 value={answer}
                                 onChange={(e) => setAnswer(e.target.value)}
-                                placeholder="Type your answer here..."
+                                placeholder="Wpisz swoją odpowiedź..."
                                 className="text-center"
                                 autoFocus
                             />
@@ -188,7 +188,7 @@ export function GameQuestion({ pin, open, onOpenChange, onNextPin }: GameQuestio
                                 className="w-full"
                                 variant={answer.trim() ? "default" : "secondary"}
                             >
-                                {answer.trim() ? "Check Answer" : "Show me the answer"}
+                                {answer.trim() ? "Sprawdź odpowiedź" : "Pokaż odpowiedź"}
                             </Button>
                         </form>
                     ) : (
@@ -201,13 +201,13 @@ export function GameQuestion({ pin, open, onOpenChange, onNextPin }: GameQuestio
                                     {isCorrect ? (
                                         <>
                                             <Check className="h-5 w-5 text-green-600" />
-                                            <span className="text-green-600 font-medium">Perfect!</span>
+                                            <span className="text-green-600 font-medium">Świetnie!</span>
                                         </>
                                     ) : (
                                         <>
                                             <X className="h-5 w-5 text-red-600" />
                                             <span className="text-red-600 font-medium">
-                                                {answer.trim() ? "Not quite" : "No problem, let's learn!"}
+                                                {answer.trim() ? "Nie do końca" : "Nie szkodzi, nauczmy się!"}
                                             </span>
                                         </>
                                     )}
@@ -219,7 +219,7 @@ export function GameQuestion({ pin, open, onOpenChange, onNextPin }: GameQuestio
                                         </p>
                                         {answer.trim() && (
                                             <p className="text-gray-500 mt-1 text-sm">
-                                                You answered: {answer}
+                                                Twoja odpowiedź: {answer}
                                             </p>
                                         )}
                                     </div>
@@ -230,7 +230,7 @@ export function GameQuestion({ pin, open, onOpenChange, onNextPin }: GameQuestio
                                 className="w-full"
                                 autoFocus
                             >
-                                Next Pin
+                                Następny punkt
                             </Button>
                         </div>
                     )}

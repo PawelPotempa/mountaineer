@@ -51,7 +51,7 @@ export function AuthCard({
                             {isLoading ? (
                                 <div className="flex items-center gap-2">
                                     <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-                                    <span>Please wait...</span>
+                                    <span>Proszę czekać...</span>
                                 </div>
                             ) : title}
                         </Button>

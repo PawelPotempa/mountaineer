@@ -14,16 +14,16 @@ export default function NotFound() {
                         </div>
                     </div>
                     <div className="space-y-2 text-center">
-                        <CardTitle className="text-2xl">Page not found</CardTitle>
+                        <CardTitle className="text-2xl">Nie znaleziono strony</CardTitle>
                         <CardDescription>
-                            The page you're looking for doesn't exist or has been moved.
+                            Strona, której szukasz nie istnieje lub została przeniesiona.
                         </CardDescription>
                     </div>
                 </CardHeader>
                 <CardContent className="flex justify-center">
                     <Button asChild>
                         <Link href="/">
-                            Return Home
+                            Wróć do strony głównej
                         </Link>
                     </Button>
                 </CardContent>

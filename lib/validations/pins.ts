@@ -2,32 +2,32 @@ import * as z from "zod";
 
 export const pinFormSchema = {
     peak: z.object({
-        name: z.string().min(1, "Name is required"),
-        elevation: z.number().min(0, "Elevation must be positive"),
+        name: z.string().min(1, "Nazwa jest wymagana"),
+        elevation: z.number().min(0, "Wysokość musi być dodatnia"),
         description: z.string().optional(),
     }),
     pass: z.object({
-        name: z.string().min(1, "Name is required"),
-        elevation: z.number().min(0, "Elevation must be positive"),
+        name: z.string().min(1, "Nazwa jest wymagana"),
+        elevation: z.number().min(0, "Wysokość musi być dodatnia"),
         description: z.string().optional(),
     }),
     river: z.object({
-        name: z.string().min(1, "Name is required"),
+        name: z.string().min(1, "Nazwa jest wymagana"),
         length: z.number().optional(),
         description: z.string().optional(),
     }),
     lake: z.object({
-        name: z.string().min(1, "Name is required"),
+        name: z.string().min(1, "Nazwa jest wymagana"),
         depth: z.number().optional(),
         description: z.string().optional(),
     }),
     shelter: z.object({
-        name: z.string().min(1, "Name is required"),
-        capacity: z.number().min(1, "Capacity must be at least 1"),
+        name: z.string().min(1, "Nazwa jest wymagana"),
+        capacity: z.number().min(1, "Pojemność musi wynosić co najmniej 1"),
         description: z.string().optional(),
     }),
     cave: z.object({
-        name: z.string().min(1, "Name is required"),
+        name: z.string().min(1, "Nazwa jest wymagana"),
         depth: z.number().optional(),
         description: z.string().optional(),
     }),
