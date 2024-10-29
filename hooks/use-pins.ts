@@ -7,7 +7,7 @@ export function useCreatePin() {
     const queryClient = getQueryClient();
     const supabase = createClient();
 
-    return useMutation({
+    const mutation = useMutation({
         mutationFn: async ({ x, y, type, details }: { x: number; y: number; type: PinType; details: PinDetails[PinType] }) => {
             const { data: { user } } = await supabase.auth.getUser();
             if (!user) throw new Error('User not authenticated');
@@ -47,12 +47,20 @@ export function useCreatePin() {
             queryClient.invalidateQueries({ queryKey: ['pins'] });
         },
     });
+
+    return {
+        createPin: mutation.mutate,
+        createPinAsync: mutation.mutateAsync,
+        isPending: mutation.isPending,
+        isError: mutation.isError,
+        error: mutation.error,
+    };
 }
 
 export function useUpdatePin() {
     const queryClient = getQueryClient();
 
-    return useMutation({
+    const mutation = useMutation({
         mutationFn: async ({ id, details }: { id: string; details: PinDetails[PinType] }) => {
             const response = await fetch(`/api/pins/${id}`, {
                 method: 'PATCH',
@@ -72,12 +80,20 @@ export function useUpdatePin() {
             queryClient.invalidateQueries({ queryKey: ['pins'] });
         },
     });
+
+    return {
+        updatePin: mutation.mutate,
+        updatePinAsync: mutation.mutateAsync,
+        isPending: mutation.isPending,
+        isError: mutation.isError,
+        error: mutation.error,
+    };
 }
 
 export function useDeletePin() {
     const queryClient = getQueryClient();
 
-    return useMutation({
+    const mutation = useMutation({
         mutationFn: async (id: string) => {
             const response = await fetch(`/api/pins/${id}`, {
                 method: 'DELETE',
@@ -93,4 +109,12 @@ export function useDeletePin() {
             queryClient.invalidateQueries({ queryKey: ['pins'] });
         },
     });
+
+    return {
+        deletePin: mutation.mutate,
+        deletePinAsync: mutation.mutateAsync,
+        isPending: mutation.isPending,
+        isError: mutation.isError,
+        error: mutation.error,
+    };
 }

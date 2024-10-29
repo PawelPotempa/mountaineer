@@ -9,6 +9,7 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
 
 interface IconSelectorProps {
     selectedType: PinType;
@@ -23,7 +24,7 @@ export const IconSelector = ({ selectedType, onTypeSelect }: IconSelectorProps) 
 
     return (
         <div
-            className="absolute top-4 right-4 z-[1000] bg-white p-2 rounded-lg shadow-lg flex gap-2 items-center"
+            className="fixed top-4 right-4 z-[1000] flex gap-1.5 bg-white/80 p-2 rounded-lg shadow-lg backdrop-blur-sm border border-gray-200"
             ref={(element) => {
                 if (element) {
                     DomEvent.disableClickPropagation(element);
@@ -39,18 +40,18 @@ export const IconSelector = ({ selectedType, onTypeSelect }: IconSelectorProps) 
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <div
-                                    className="p-2 rounded hover:bg-gray-100 transition-colors cursor-pointer"
+                                    className={cn(
+                                        "p-2 rounded-lg transition-colors cursor-pointer text-gray-700 hover:bg-gray-100",
+                                        selectedType === type && "bg-gray-200 hover:bg-gray-200"
+                                    )}
                                     style={{
                                         backgroundColor: selectedType === type ? config.color : undefined
                                     }}
                                 >
-                                    <config.icon
-                                        size={24}
-                                        color="#000000"
-                                    />
+                                    <config.icon size={20} />
                                 </div>
                             </TooltipTrigger>
-                            <TooltipContent side="bottom">
+                            <TooltipContent side="bottom" className="z-[1001]">
                                 <p>{config.label}</p>
                             </TooltipContent>
                         </Tooltip>

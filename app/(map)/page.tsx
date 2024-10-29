@@ -6,14 +6,14 @@ import { dehydrate } from '@tanstack/react-query';
 import { HydrationBoundary } from '@tanstack/react-query';
 
 export default function LearnPage() {
-  const queryClient = getQueryClient()
-  void queryClient.prefetchQuery(serverPinOptions)
+    const queryClient = getQueryClient()
+    void queryClient.prefetchQuery(serverPinOptions)
 
-  return (
-    <div className="h-screen w-full">
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <MapWrapper mode="learn" />
-      </HydrationBoundary>
-    </div>
-  );
+    return (
+        <div className="h-screen w-full">
+            <HydrationBoundary state={dehydrate(queryClient)}>
+                <MapWrapper mode="learn" />
+            </HydrationBoundary>
+        </div>
+    );
 } 

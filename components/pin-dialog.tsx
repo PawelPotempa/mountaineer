@@ -23,6 +23,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import React from "react";
+import { Loader2 } from "lucide-react";
 
 const formSchema = {
     peak: z.object({
@@ -73,9 +74,39 @@ interface PinDialogProps {
     onOpenChange: (open: boolean) => void;
     onSubmit: (data: PinDetails[PinType]) => void;
     onDelete?: () => void;
+    isDeletePending?: boolean;
+    isSubmitPending?: boolean;
 }
 
-export function PinDialog({ pin, mode, open, onOpenChange, onSubmit, onDelete }: PinDialogProps) {
+function getDetailProperty<T extends PinType, K extends keyof PinDetails[T]>(
+    details: PinDetails[PinType] | undefined,
+    type: T,
+    key: K
+): PinDetails[T][K] | undefined {
+    if (!details) return undefined;
+
+    // Type guard to check if details matches the expected type
+    const isMatchingType = (d: PinDetails[PinType]): d is PinDetails[T] => {
+        switch (type) {
+            case 'peak':
+            case 'pass':
+                return 'elevation' in d;
+            case 'river':
+                return 'length' in d;
+            case 'lake':
+            case 'cave':
+                return 'depth' in d;
+            case 'shelter':
+                return 'capacity' in d;
+            default:
+                return false;
+        }
+    };
+
+    return isMatchingType(details) ? details[key] : undefined;
+}
+
+export function PinDialog({ pin, mode, open, onOpenChange, onSubmit, onDelete, isDeletePending, isSubmitPending }: PinDialogProps) {
     const type = pin.type;
     const config = ICONS_CONFIG[type];
 
@@ -84,10 +115,18 @@ export function PinDialog({ pin, mode, open, onOpenChange, onSubmit, onDelete }:
         defaultValues: {
             name: pin.details?.name || '',
             description: pin.details?.description || '',
-            ...('elevation' in (pin.details || {}) ? { elevation: pin.details?.elevation } : {}),
-            ...('capacity' in (pin.details || {}) ? { capacity: pin.details?.capacity } : {}),
-            ...('depth' in (pin.details || {}) ? { depth: pin.details?.depth } : {}),
-            ...('length' in (pin.details || {}) ? { length: pin.details?.length } : {}),
+            ...(type === 'peak' || type === 'pass'
+                ? { elevation: getDetailProperty(pin.details, type, 'elevation') }
+                : {}),
+            ...(type === 'shelter'
+                ? { capacity: getDetailProperty(pin.details, type, 'capacity') }
+                : {}),
+            ...(type === 'cave' || type === 'lake'
+                ? { depth: getDetailProperty(pin.details, type, 'depth') }
+                : {}),
+            ...(type === 'river'
+                ? { length: getDetailProperty(pin.details, type, 'length') }
+                : {}),
         },
     });
 
@@ -239,8 +278,12 @@ export function PinDialog({ pin, mode, open, onOpenChange, onSubmit, onDelete }:
                         />
 
                         <div className="flex flex-col gap-2">
-                            <Button type="submit" className="w-full">
-                                {mode === 'create' ? 'Create' : 'Update'}
+                            <Button type="submit" className="w-full" disabled={isSubmitPending}>
+                                {isSubmitPending ? (
+                                    <Loader2 className="h-4 w-4 animate-spin" />
+                                ) : (
+                                    mode === 'create' ? 'Create' : 'Update'
+                                )}
                             </Button>
 
                             {mode === 'edit' && onDelete && (
@@ -252,8 +295,13 @@ export function PinDialog({ pin, mode, open, onOpenChange, onSubmit, onDelete }:
                                         e.preventDefault();
                                         onDelete();
                                     }}
+                                    disabled={isDeletePending}
                                 >
-                                    Delete Pin
+                                    {isDeletePending ? (
+                                        <Loader2 className="h-4 w-4 animate-spin" />
+                                    ) : (
+                                        'Delete Pin'
+                                    )}
                                 </Button>
                             )}
                         </div>

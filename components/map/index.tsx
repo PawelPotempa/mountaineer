@@ -2,8 +2,8 @@
 
 import { CRS, LatLngExpression, LatLngBoundsExpression, DomEvent } from "leaflet";
 import { MapContainer, TileLayer, useMapEvents, Marker } from "react-leaflet";
-import { useState } from "react";
-import { PinType, PinDetails } from "@/types/pins";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import { PinType, PinDetails, Pin } from "@/types/pins";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { clientPinOptions } from "@/queries/pins";
 import { toast } from "sonner";
@@ -12,11 +12,13 @@ import { createDynamicIcon } from "./icons-config";
 import { IconSelector } from "./icon-selector";
 import { ExistingPins } from "./existing-pins";
 import { PinDialog } from "../pin-dialog";
+import { GameQuestion } from "../game-question";
 
 const MapEvents = () => {
     const [selectedType, setSelectedType] = useState<PinType>('peak');
     const [dialogOpen, setDialogOpen] = useState(false);
     const [pendingPin, setPendingPin] = useState<{ x: number; y: number; type: PinType } | null>(null);
+    const [cursorPosition, setCursorPosition] = useState<L.LatLng | null>(null);
     const createPin = useCreatePin();
 
     const map = useMapEvents({
@@ -33,12 +35,25 @@ const MapEvents = () => {
                 setDialogOpen(true);
             }
         },
+        mousemove: (e) => {
+            const target = e.originalEvent.target as HTMLElement;
+            const isOverMarker = target.closest('.leaflet-marker-icon') !== null;
+
+            if (dialogOpen || isOverMarker) {
+                setCursorPosition(null);
+            } else {
+                setCursorPosition(e.latlng);
+            }
+        },
+        mouseout: () => {
+            setCursorPosition(null);
+        },
     });
 
     const handleCreatePin = async (details: PinDetails[PinType]) => {
         if (!pendingPin) return;
 
-        createPin.mutate(
+        createPin.createPinAsync(
             {
                 ...pendingPin,
                 details,
@@ -65,15 +80,17 @@ const MapEvents = () => {
 
     return (
         <>
-            <IconSelector
-                selectedType={selectedType}
-                onTypeSelect={setSelectedType}
-            />
-            {pendingPin && (
+            <IconSelector selectedType={selectedType} onTypeSelect={setSelectedType} />
+            {cursorPosition && (
                 <Marker
-                    position={[pendingPin.y, pendingPin.x]}
-                    icon={createDynamicIcon(pendingPin.type)}
+                    position={cursorPosition}
+                    icon={createDynamicIcon(selectedType)}
+                    interactive={false}
+                    opacity={0.5} // Set opacity for the cursor preview
                 />
+            )}
+            {pendingPin && (
+                <Marker position={[pendingPin.y, pendingPin.x]} icon={createDynamicIcon(pendingPin.type)} />
             )}
             {pendingPin && (
                 <PinDialog
@@ -82,39 +99,93 @@ const MapEvents = () => {
                     open={dialogOpen}
                     onOpenChange={handleDialogClose}
                     onSubmit={handleCreatePin}
+                    isSubmitPending={createPin.isPending}
                 />
             )}
         </>
     );
 };
 
-const Map = () => {
-    const { data: pins } = useSuspenseQuery(clientPinOptions);
+interface MapProps {
+    mode: 'learn' | 'edit' | 'game';
+}
 
-    const position: LatLngExpression = [-128, 128];
-    const bounds: LatLngBoundsExpression = [
-        [-256, 0],
-        [0, 256],
-    ];
+const Map = ({ mode }: MapProps) => {
+    const { data: pins } = useSuspenseQuery(clientPinOptions);
+    const [gamePin, setGamePin] = useState<Pin | null>(null);
+    const [questionOpen, setQuestionOpen] = useState(false);
+    const mapRef = useRef<L.Map | null>(null);
+
+    const getRandomPin = useCallback((excludePin?: Pin) => {
+        const availablePins = excludePin
+            ? pins.filter(p => p.id !== excludePin.id)
+            : pins;
+        return availablePins[Math.floor(Math.random() * availablePins.length)];
+    }, [pins]);
+
+    const panToPin = useCallback((pin: Pin) => {
+        if (!mapRef.current) return;
+        mapRef.current.panTo([pin.y, pin.x], {
+            duration: 1,
+            easeLinearity: 0.5
+        });
+    }, []);
+
+    const handleNextPin = useCallback(() => {
+        if (mode === 'game' && gamePin) {
+            const nextPin = getRandomPin(gamePin);
+            setGamePin(nextPin);
+            panToPin(nextPin);
+            setQuestionOpen(true);
+        }
+    }, [mode, gamePin, getRandomPin, panToPin]);
+
+    const initialPin = useMemo(() => {
+        if (mode === 'game' && pins.length > 0) {
+            const firstPin = getRandomPin();
+            setQuestionOpen(true);
+            return firstPin;
+        }
+        return null;
+    }, [mode, pins, getRandomPin]);
+
+    useEffect(() => {
+        if (initialPin) {
+            setGamePin(initialPin);
+        }
+    }, [initialPin]);
+
+    const initialCenter = useMemo((): LatLngExpression => {
+        if (mode === 'game' && initialPin) {
+            return [initialPin.y, initialPin.x];
+        }
+        return [-128, 128];
+    }, [mode, initialPin]);
+
+    const bounds: LatLngBoundsExpression = [[-256, 0], [0, 256]];
 
     return (
         <div className="h-screen w-full">
             <MapContainer
                 key="map"
                 className="h-full w-full"
-                center={position}
+                center={initialCenter}
                 maxBounds={bounds}
                 maxBoundsViscosity={1}
-                zoom={4}
+                zoom={6}
                 zoomControl={false}
                 zoomSnap={1}
                 minZoom={4}
                 maxZoom={7}
                 doubleClickZoom={false}
                 crs={CRS.Simple}
+                ref={mapRef}
             >
-                <MapEvents />
-                <ExistingPins pins={pins} />
+                {mode === 'edit' && <MapEvents />}
+                <ExistingPins
+                    pins={mode === 'game' ? (gamePin ? [gamePin] : []) : pins}
+                    mode={mode}
+                />
                 <TileLayer
                     tileSize={256}
                     minZoom={4}
@@ -122,9 +193,17 @@ const Map = () => {
                     noWrap={true}
                     bounds={bounds}
                     attribution=""
-                    url="/withText/{z}/{x}/{y}.png"
+                    url={mode === 'game' ? "/noText/{z}/{x}/{y}.png" : "/withText/{z}/{x}/{y}.png"}
                 />
             </MapContainer>
+            {mode === 'game' && (
+                <GameQuestion
+                    pin={gamePin}
+                    open={questionOpen}
+                    onOpenChange={setQuestionOpen}
+                    onNextPin={handleNextPin}
+                />
+            )}
         </div>
     );
 };

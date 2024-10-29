@@ -4,6 +4,9 @@ import "./globals.css";
 import 'leaflet/dist/leaflet.css';
 import Providers from "@/lib/providers";
 import { Toaster } from "@/components/ui/sonner";
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
+import { NavigationPanel } from "@/components/navigation-panel";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -33,6 +36,7 @@ export default function RootLayout({
       >
         <Providers>
           {children}
+          <NavigationPanel />
         </Providers>
         <Toaster />
       </body>
