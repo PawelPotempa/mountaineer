@@ -1,4 +1,3 @@
-// This will be our main "learning" route
 import { MapWrapper } from '@/components/map-wrapper';
 import { getQueryClient } from '@/lib/get-query-client';
 import { serverPinOptions } from '@/queries/pins';

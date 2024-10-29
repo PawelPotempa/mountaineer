@@ -7,6 +7,7 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Separator } from "./ui/separator";
 
 export async function NavigationPanel() {
     const supabase = await createClient();
@@ -34,9 +35,7 @@ export async function NavigationPanel() {
                     title="Edit Mode"
                     disabled={!isAuthenticated}
                 />
-
-                <div className="w-full h-px bg-gray-200 my-1" />
-
+                <Separator className="mb-1" />
                 <AuthButton isAuthenticated={isAuthenticated} />
             </div>
         </TooltipProvider>

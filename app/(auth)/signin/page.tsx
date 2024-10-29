@@ -16,13 +16,12 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { signinSchema } from "@/lib/validations/auth";
+import { SignInFormData, signinSchema } from "@/lib/validations/auth";
 
-type FormData = z.infer<typeof signinSchema>;
 
 export default function SignInPage() {
     const [isLoading, setIsLoading] = useState(false);
-    const form = useForm<FormData>({
+    const form = useForm<SignInFormData>({
         resolver: zodResolver(signinSchema),
         defaultValues: {
             email: "",
@@ -30,7 +29,7 @@ export default function SignInPage() {
         },
     });
 
-    async function onSubmit(data: FormData) {
+    async function onSubmit(data: SignInFormData) {
         setIsLoading(true);
         try {
             const formData = new FormData();

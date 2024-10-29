@@ -4,8 +4,6 @@ import "./globals.css";
 import 'leaflet/dist/leaflet.css';
 import Providers from "@/lib/providers";
 import { Toaster } from "@/components/ui/sonner";
-import { createClient } from "@/lib/supabase/server";
-import { redirect } from "next/navigation";
 import { NavigationPanel } from "@/components/navigation-panel";
 
 const geistSans = localFont({
@@ -30,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="pl">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

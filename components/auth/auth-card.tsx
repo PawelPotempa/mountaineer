@@ -26,7 +26,7 @@ export function AuthCard({
 }: AuthCardProps) {
     return (
         <div className="min-h-screen w-full flex items-center justify-center bg-gray-50/50">
-            <Card className="w-[380px]">
+            <Card className="min-w-80 max-w-96">
                 <CardHeader className="space-y-3">
                     <div className="flex justify-center">
                         <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">

@@ -19,5 +19,5 @@ export const signinSchema = z.object({
     password: z.string().min(1, "Please enter your password"),
 });
 
-export type SignupFormData = z.infer<typeof signupSchema>;
-export type SigninFormData = z.infer<typeof signinSchema>; 
+export type SignUpFormData = z.infer<typeof signupSchema>;
+export type SignInFormData = z.infer<typeof signinSchema>; 
