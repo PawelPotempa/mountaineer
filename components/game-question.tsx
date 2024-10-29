@@ -30,7 +30,7 @@ const QUESTIONS: { [T in PinType]: PinQuestionConfig<T>[] } = {
             format: (pin) => `To ${pin.details.name}`,
         },
         {
-            question: (pin) => `Jaka jest wysokość ${pin.details.name}?`,
+            question: (pin) => `Jaka jest wysokość szczytu ${pin.details.name}?`,
             answer: (pin) => pin.details.elevation,
             format: (pin) => `Wysokość wynosi ${pin.details.elevation}m`,
         }
@@ -42,7 +42,7 @@ const QUESTIONS: { [T in PinType]: PinQuestionConfig<T>[] } = {
             format: (pin) => `To ${pin.details.name}`,
         },
         {
-            question: (pin) => `Jaka jest wysokość ${pin.details.name}?`,
+            question: (pin) => `Jaka jest wysokość przełęczy ${pin.details.name}?`,
             answer: (pin) => pin.details.elevation,
             format: (pin) => `Wysokość wynosi ${pin.details.elevation}m`,
         }
@@ -54,7 +54,7 @@ const QUESTIONS: { [T in PinType]: PinQuestionConfig<T>[] } = {
             format: (pin) => `To ${pin.details.name}`,
         },
         {
-            question: (pin) => `Jaka jest długość ${pin.details.name}?`,
+            question: (pin) => `Jaka jest długość rzeki ${pin.details.name}?`,
             answer: (pin) => pin.details.length ?? 0,
             format: (pin) => `Długość wynosi ${pin.details.length}km`,
         }
@@ -66,19 +66,19 @@ const QUESTIONS: { [T in PinType]: PinQuestionConfig<T>[] } = {
             format: (pin) => `To ${pin.details.name}`,
         },
         {
-            question: (pin) => `Jaka jest głębokość ${pin.details.name}?`,
+            question: (pin) => `Jaka jest głębokość stawu ${pin.details.name}?`,
             answer: (pin) => pin.details.depth ?? 0,
             format: (pin) => `Głębokość wynosi ${pin.details.depth}m`,
         }
     ],
     shelter: [
         {
-            question: "Jak nazywa się ten schron?",
+            question: "Jak nazywa się to schronisko?",
             answer: (pin) => pin.details.name,
             format: (pin) => `To ${pin.details.name}`,
         },
         {
-            question: (pin) => `Jaka jest pojemność ${pin.details.name}?`,
+            question: (pin) => `Jaka jest pojemność schroniska ${pin.details.name}?`,
             answer: (pin) => pin.details.capacity,
             format: (pin) => `Pojemność wynosi ${pin.details.capacity} osób`,
         }
@@ -90,7 +90,7 @@ const QUESTIONS: { [T in PinType]: PinQuestionConfig<T>[] } = {
             format: (pin) => `To ${pin.details.name}`,
         },
         {
-            question: (pin) => `Jaka jest głębokość ${pin.details.name}?`,
+            question: (pin) => `Jaka jest głębokość jaskini ${pin.details.name}?`,
             answer: (pin) => pin.details.depth ?? 0,
             format: (pin) => `Głębokość wynosi ${pin.details.depth}m`,
         }
