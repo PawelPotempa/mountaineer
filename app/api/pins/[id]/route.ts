@@ -25,10 +25,6 @@ export async function PATCH(
         return NextResponse.json({ error: 'Pin not found' }, { status: 404 })
     }
 
-    if (existingPin.user_id !== user.id) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 403 })
-    }
-
     const { data, error } = await supabase
         .from('pins')
         .update({ details })
@@ -64,10 +60,6 @@ export async function DELETE(
 
     if (checkError) {
         return NextResponse.json({ error: 'Pin not found' }, { status: 404 })
-    }
-
-    if (existingPin.user_id !== user.id) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 403 })
     }
 
     const { error } = await supabase

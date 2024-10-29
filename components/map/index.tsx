@@ -172,7 +172,7 @@ const Map = ({ mode }: MapProps) => {
                 center={initialCenter}
                 maxBounds={bounds}
                 maxBoundsViscosity={1}
-                zoom={6}
+                zoom={5}
                 zoomControl={false}
                 zoomSnap={1}
                 minZoom={4}
