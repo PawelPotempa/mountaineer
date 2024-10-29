@@ -86,7 +86,7 @@ const MapEvents = () => {
                     position={cursorPosition}
                     icon={createDynamicIcon(selectedType)}
                     interactive={false}
-                    opacity={0.5} // Set opacity for the cursor preview
+                    opacity={0.5}
                 />
             )}
             {pendingPin && (

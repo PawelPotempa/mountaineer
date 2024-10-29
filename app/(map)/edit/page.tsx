@@ -11,7 +11,7 @@ export default async function EditPage() {
     const { data: { user }, error } = await supabase.auth.getUser();
 
     if (error || !user) {
-        redirect('/login');
+        redirect('/signin');
     }
 
     const queryClient = getQueryClient();

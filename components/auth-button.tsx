@@ -19,7 +19,7 @@ export function AuthButton({ isAuthenticated }: AuthButtonProps) {
 
     return (
         <NavigationButton
-            href="/login"
+            href="/signin"
             icon={isAuthenticated ? "log-out" : "log-in"}
             title={isAuthenticated ? "Logout" : "Login"}
             className={isAuthenticated ? "hover:bg-red-50 hover:text-red-600" : undefined}

@@ -35,8 +35,8 @@ export async function updateSession(request: NextRequest) {
         data: { user },
     } = await supabase.auth.getUser()
 
-    // Add redirect for logged-in users trying to access login page
-    if (user && request.nextUrl.pathname.startsWith('/login')) {
+    // Add redirect for logged-in users trying to access signin page
+    if (user && request.nextUrl.pathname.startsWith('/signin')) {
         const url = request.nextUrl.clone()
         url.pathname = '/'
         return NextResponse.redirect(url)
@@ -44,14 +44,15 @@ export async function updateSession(request: NextRequest) {
 
     if (
         !user &&
-        !request.nextUrl.pathname.startsWith('/login') &&
+        !request.nextUrl.pathname.startsWith('/signin') &&
+        !request.nextUrl.pathname.startsWith('/signup') &&
         !request.nextUrl.pathname.startsWith('/auth') &&
         request.nextUrl.pathname !== '/' &&
         request.nextUrl.pathname !== '/game'
     ) {
-        // no user, potentially respond by redirecting the user to the login page
+        // no user, potentially respond by redirecting the user to the signin page
         const url = request.nextUrl.clone()
-        url.pathname = '/login'
+        url.pathname = '/signin'
         return NextResponse.redirect(url)
     }
 
