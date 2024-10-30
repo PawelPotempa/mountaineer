@@ -21,8 +21,8 @@ const MapEvents = () => {
     const [cursorPosition, setCursorPosition] = useState<L.LatLng | null>(null);
     const createPin = useCreatePin();
 
-    /* eslint-disable */
-    const map = useMapEvents({
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const _map = useMapEvents({
         click: (e) => {
             const target = e.originalEvent.target as HTMLElement;
             const isOverMarker = target.closest('.leaflet-marker-icon') !== null;

@@ -5,6 +5,7 @@ import 'leaflet/dist/leaflet.css';
 import Providers from "@/lib/providers";
 import { Toaster } from "@/components/ui/sonner";
 import { NavigationPanel } from "@/components/navigation-panel";
+import { Analytics } from "@vercel/analytics/react"
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -54,6 +55,7 @@ export default function RootLayout({
         <Providers>
           {children}
           <NavigationPanel />
+          <Analytics />
         </Providers>
         <Toaster />
       </body>
