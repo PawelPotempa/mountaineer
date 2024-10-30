@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     },
 };
 
-export default async function GamePage() {
+export default function GamePage() {
     const queryClient = getQueryClient()
     void queryClient.prefetchQuery(serverPinOptions)
 

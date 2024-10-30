@@ -32,7 +32,7 @@ const websiteSchema = {
   },
 };
 
-export default async function LearnPage() {
+export default function LearnPage() {
   const queryClient = getQueryClient()
   void queryClient.prefetchQuery(serverPinOptions)
 
