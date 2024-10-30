@@ -6,7 +6,7 @@ import { HydrationBoundary } from '@tanstack/react-query';
 import type { Metadata } from 'next';
 import { JsonLd } from '@/components/json-ld';
 
-const metadata: Metadata = {
+export const metadata: Metadata = {
   title: 'Tryb nauki',
   description: 'Poznaj topografię gór w interaktywny sposób. Odkryj szczyty, przełęcze, schroniska i inne punkty na mapie.',
   alternates: {
@@ -32,7 +32,7 @@ const websiteSchema = {
   },
 };
 
-export default function LearnPage() {
+export default async function LearnPage() {
   const queryClient = getQueryClient()
   void queryClient.prefetchQuery(serverPinOptions)
 

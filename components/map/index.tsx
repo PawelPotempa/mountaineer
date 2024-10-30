@@ -1,6 +1,6 @@
 'use client';
 
-import { CRS, LatLngExpression, LatLngBoundsExpression, DomEvent } from "leaflet";
+import { CRS, LatLngExpression, LatLngBoundsExpression } from "leaflet";
 import { MapContainer, TileLayer, useMapEvents, Marker } from "react-leaflet";
 import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { PinType, PinDetails, Pin } from "@/types/pins";
@@ -21,6 +21,7 @@ const MapEvents = () => {
     const [cursorPosition, setCursorPosition] = useState<L.LatLng | null>(null);
     const createPin = useCreatePin();
 
+    /* eslint-disable */
     const map = useMapEvents({
         click: (e) => {
             const target = e.originalEvent.target as HTMLElement;
@@ -200,7 +201,6 @@ const Map = ({ mode }: MapProps) => {
                 <GameQuestion
                     pin={gamePin}
                     open={questionOpen}
-                    onOpenChange={setQuestionOpen}
                     onNextPin={handleNextPin}
                 />
             )}

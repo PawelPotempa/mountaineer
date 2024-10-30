@@ -2,10 +2,7 @@ import { NavigationButton } from "./navigation-button";
 import { createClient } from "@/lib/supabase/server";
 import { AuthButton } from "./auth-button";
 import {
-    Tooltip,
-    TooltipContent,
     TooltipProvider,
-    TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Separator } from "./ui/separator";
 

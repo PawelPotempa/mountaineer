@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { JsonLd } from '@/components/json-ld';
 import { MapWrapper } from '@/components/map-wrapper';
 import { getQueryClient } from '@/lib/get-query-client';
 import { serverPinOptions } from '@/queries/pins';
@@ -19,7 +18,7 @@ export const metadata: Metadata = {
     },
 };
 
-export default function GamePage() {
+export default async function GamePage() {
     const queryClient = getQueryClient()
     void queryClient.prefetchQuery(serverPinOptions)
 

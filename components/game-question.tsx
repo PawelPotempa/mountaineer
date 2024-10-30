@@ -100,11 +100,10 @@ const QUESTIONS: { [T in PinType]: PinQuestionConfig<T>[] } = {
 interface GameQuestionProps {
     pin: Pin | null;
     open: boolean;
-    onOpenChange: (open: boolean) => void;
     onNextPin: () => void;
 }
 
-export function GameQuestion({ pin, open, onOpenChange, onNextPin }: GameQuestionProps) {
+export function GameQuestion({ pin, open, onNextPin }: GameQuestionProps) {
     const [answer, setAnswer] = useState("");
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
     const [currentQuestion, setCurrentQuestion] = useState<QuestionType | null>(null);

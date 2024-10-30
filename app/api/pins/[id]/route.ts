@@ -3,11 +3,14 @@ import { NextResponse } from 'next/server'
 
 export async function PATCH(
     request: Request,
-    { params }: { params: { id: string } }
+    context: {
+        params: Promise<{ id: string }>
+    }
 ) {
     const supabase = await createClient()
     const { details } = await request.json()
-    const id = await Promise.resolve(params.id)
+
+    const { id } = await context.params
 
     const { data: { user }, error: userError } = await supabase.auth.getUser()
 
@@ -15,7 +18,7 @@ export async function PATCH(
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const { data: existingPin, error: checkError } = await supabase
+    const { error: checkError } = await supabase
         .from('pins')
         .select('*')
         .eq('id', id)
@@ -40,11 +43,14 @@ export async function PATCH(
 }
 
 export async function DELETE(
-    request: Request,
-    { params }: { params: { id: string } }
+    _request: Request,
+    context: {
+        params: Promise<{ id: string }>
+    }
 ) {
     const supabase = await createClient()
-    const id = await Promise.resolve(params.id)
+
+    const { id } = await context.params
 
     const { data: { user }, error: userError } = await supabase.auth.getUser()
 
@@ -52,7 +58,7 @@ export async function DELETE(
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const { data: existingPin, error: checkError } = await supabase
+    const { error: checkError } = await supabase
         .from('pins')
         .select('*')
         .eq('id', id)
