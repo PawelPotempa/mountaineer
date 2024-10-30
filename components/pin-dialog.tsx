@@ -111,7 +111,7 @@ export function PinDialog({ pin, mode, open, onOpenChange, onSubmit, onDelete, i
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
                         <config.icon size={20} style={{ color: config.color }} />
-                        <span>{mode === 'create' ? 'Nowy' : 'Edytuj'} {config.label}</span>
+                        <span>{mode === 'create' ? 'Nowy' : 'Edytuj'} punkt</span>
                     </DialogTitle>
                 </DialogHeader>
 
